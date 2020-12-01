@@ -16,7 +16,7 @@
 <?php
 if(auth_user() !== null)
 {
-    require_once 'inc/dashboard.php';
+    require_once 'todolist.php';
 }
 else { ?>
     <div class="form-container-wrapper">

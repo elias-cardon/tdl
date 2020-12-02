@@ -2,7 +2,7 @@
 ini_set('session.cookie_httponly', 1);
 session_start();
 
-define("APP_NAME", "AJAX Login");
+define("APP_NAME", "");
 
 require_once 'db.php';
 

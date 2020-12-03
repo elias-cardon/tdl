@@ -20,23 +20,23 @@ if(!empty($_SERVER["HTTP_X_REQUESTED_WITH"]) && strtolower($_SERVER["HTTP_X_REQU
          */
         if(trim($formData["name"]) == "")
         {
-            $errors[] = "Name field can't be blank.";
+            $errors[] = "Ce champs ne doit pas être vide.";
         }
         if(trim($formData["email"]) == "")
         {
-            $errors[] = "Email field can't be blank.";
+            $errors[] = "Ce champs ne doit pas être vide.";
         }
         if(!filter_var($formData["email"], FILTER_VALIDATE_EMAIL))
         {
-            $errors[] = "Email must be a valid email address.";
+            $errors[] = "Ce champs ne doit pas être vide.";
         }
         if(trim($formData["username"]) == "")
         {
-            $errors[] = "Username field can't be blank.";
+            $errors[] = "Ce champs ne doit pas être vide.";
         }
         if(trim($formData["password"]) == "")
         {
-            $errors[] = "Password field can't be blank.";
+            $errors[] = "Ce champs ne doit pas être vide.";
         }
 
         require_once '../app/db.php';

@@ -19,11 +19,11 @@ if(!empty($_SERVER["HTTP_X_REQUESTED_WITH"]) && strtolower($_SERVER["HTTP_X_REQU
 
         if(trim($formData["username"]) == "")
         {
-            $errors[] = "Username field can't be blank.";
+            $errors[] = "Ce champs ne doit pas être vide.";
         }
         if(trim($formData["password"]) == "")
         {
-            $errors[] = "Password field can't be blank.";
+            $errors[] = "Ce champs ne doit pas être vide";
         }
 
         require_once '../app/db.php';
@@ -56,7 +56,7 @@ if(!empty($_SERVER["HTTP_X_REQUESTED_WITH"]) && strtolower($_SERVER["HTTP_X_REQU
                 }
                 $success = true;
             }
-        }  else $errors[] = "Incorrect username/password.";
+        }  else $errors[] = "Pseudo ou mot de passe incorrect.";
     }
     echo json_encode(array("errors" => $errors, "success" => $success));
 }

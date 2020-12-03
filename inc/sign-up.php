@@ -27,7 +27,7 @@
                 <div class="alert alert-success"></div>
                 <div class="alert alert-danger alert-errors"></div>
 
-                <button type="submit" class="btn btn-primary btn-lg btn-block">S'inscrire'</button><hr />
+                <button type="submit" class="btn btn-primary btn-lg btn-block">S'inscrire</button><hr />
                 <p>Si vous avez déjà un compte, vous pouvez vous connecter ici.</p>
                 <a href="#" id="sign-in-link">Connexion</a>
                 <input type="hidden" name="_token" id="signup_token" class="token-field" value="<?php echo isset($_SESSION["token"]) ? $_SESSION["token"] : ""; ?>" />

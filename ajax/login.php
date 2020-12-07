@@ -3,7 +3,7 @@ ini_set('session.cookie_httponly', 1);
 session_start();
 
 /* check if AJAX request  */
-if(!empty($_SERVER["HTTP_X_REQUESTED_WITH"]) && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) == "xmlhttprequest") {
+if (!empty($_SERVER["HTTP_X_REQUESTED_WITH"]) && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) == "xmlhttprequest") {
 
     $errors = array();      //array that will contain the errors if any
     $success = false;       //whether the ajax post and user signing in are successful. Initial assumption is false
@@ -14,15 +14,13 @@ if(!empty($_SERVER["HTTP_X_REQUESTED_WITH"]) && strtolower($_SERVER["HTTP_X_REQU
     $formData = array();
     parse_str($_POST["formData"], $formData);
 
-    if(isset($_SESSION["token"]) && $_SESSION["token"] === $formData["_token"])  //if tokens match
+    if (isset($_SESSION["token"]) && $_SESSION["token"] === $formData["_token"])  //if tokens match
     {
 
-        if(trim($formData["username"]) == "")
-        {
+        if (trim($formData["username"]) == "") {
             $errors[] = "Ce champs ne doit pas être vide.";
         }
-        if(trim($formData["password"]) == "")
-        {
+        if (trim($formData["password"]) == "") {
             $errors[] = "Ce champs ne doit pas être vide";
         }
 
@@ -33,13 +31,11 @@ if(!empty($_SERVER["HTTP_X_REQUESTED_WITH"]) && strtolower($_SERVER["HTTP_X_REQU
          */
         $check_user = $db->prepare("SELECT * FROM users WHERE username = :username OR email = :username");
         $check_user->execute(array(
-           ":username" => $formData["username"]
+            ":username" => $formData["username"]
         ));
-        if($check_user->rowCount() > 0)
-        {
+        if ($check_user->rowCount() > 0) {
             $user = $check_user->fetch();
-            if(password_verify($formData["password"], $user["password"]))
-            {
+            if (password_verify($formData["password"], $user["password"])) {
                 /*
                  * Log in the user
                  */
@@ -50,13 +46,12 @@ if(!empty($_SERVER["HTTP_X_REQUESTED_WITH"]) && strtolower($_SERVER["HTTP_X_REQU
                     "username" => $user["username"],
                     "password" => $user["password"]
                 );
-                if(isset($formData["remember_me"]))
-                {
+                if (isset($formData["remember_me"])) {
                     setcookie("ajax_login_user", json_encode($_SESSION["user"]), time() + 86400, "/");
                 }
                 $success = true;
             }
-        }  else $errors[] = "Pseudo ou mot de passe incorrect.";
+        } else $errors[] = "Pseudo ou mot de passe incorrect.";
     }
     echo json_encode(array("errors" => $errors, "success" => $success));
 }

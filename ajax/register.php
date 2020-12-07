@@ -2,7 +2,7 @@
 session_start();
 
 /* check if AJAX request  */
-if(!empty($_SERVER["HTTP_X_REQUESTED_WITH"]) && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) == "xmlhttprequest") {
+if (!empty($_SERVER["HTTP_X_REQUESTED_WITH"]) && strtolower($_SERVER["HTTP_X_REQUESTED_WITH"]) == "xmlhttprequest") {
 
     $errors = array();     //array that will contain the errors if any
     $success = false;      //whether the ajax post and user creation are successful. Initial assumption is false
@@ -13,29 +13,24 @@ if(!empty($_SERVER["HTTP_X_REQUESTED_WITH"]) && strtolower($_SERVER["HTTP_X_REQU
     $formData = array();
     parse_str($_POST["formData"], $formData);
 
-    if(isset($_SESSION["token"]) && $_SESSION["token"] === $formData["_token"])  //if tokens match
+    if (isset($_SESSION["token"]) && $_SESSION["token"] === $formData["_token"])  //if tokens match
     {
         /*
          * Checking if posted fields are empty string (just in case) - e.g. user typing only whitespaces instead of actual name, email, username, password
          */
-        if(trim($formData["name"]) == "")
-        {
+        if (trim($formData["name"]) == "") {
             $errors[] = "Ce champs ne doit pas être vide.";
         }
-        if(trim($formData["email"]) == "")
-        {
+        if (trim($formData["email"]) == "") {
             $errors[] = "Ce champs ne doit pas être vide.";
         }
-        if(!filter_var($formData["email"], FILTER_VALIDATE_EMAIL))
-        {
+        if (!filter_var($formData["email"], FILTER_VALIDATE_EMAIL)) {
             $errors[] = "Ce champs ne doit pas être vide.";
         }
-        if(trim($formData["username"]) == "")
-        {
+        if (trim($formData["username"]) == "") {
             $errors[] = "Ce champs ne doit pas être vide.";
         }
-        if(trim($formData["password"]) == "")
-        {
+        if (trim($formData["password"]) == "") {
             $errors[] = "Ce champs ne doit pas être vide.";
         }
 
@@ -49,16 +44,14 @@ if(!empty($_SERVER["HTTP_X_REQUESTED_WITH"]) && strtolower($_SERVER["HTTP_X_REQU
             ":email" => $formData["email"],
             ":username" => $formData["username"]
         ));
-        if($check_if_user_exists->rowCount() > 0)
-        {
+        if ($check_if_user_exists->rowCount() > 0) {
             $errors[] = "User with username " . $formData["username"] . " or email " . $formData["email"] . " already exists.";
         }
 
         /*
          * If no errors, create the user in database and sign in the user
          */
-        if(empty($errors))
-        {
+        if (empty($errors)) {
             $hashed_password = password_hash($formData["password"], PASSWORD_DEFAULT);
             $create_user = $db->prepare("INSERT INTO users(name, email, username, password, created_at) VALUES(:name, :email, :username, :password, NOW())");
             $create_user->execute(array(
@@ -69,11 +62,11 @@ if(!empty($_SERVER["HTTP_X_REQUESTED_WITH"]) && strtolower($_SERVER["HTTP_X_REQU
             ));
             $user_id = $db->lastInsertId();
             $_SESSION["user"] = array(
-              "id" => $user_id,
-              "name" => $formData["name"],
-              "email" => $formData["email"],
-              "username" => $formData["username"],
-              "password" => $hashed_password
+                "id" => $user_id,
+                "name" => $formData["name"],
+                "email" => $formData["email"],
+                "username" => $formData["username"],
+                "password" => $hashed_password
             );
             $success = true;
         }

@@ -8,17 +8,15 @@
     <title>To do list</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <?php if(auth_user() !== null) { ?>
-    <link href="css/dashboard.css" rel="stylesheet">
+    <?php if (auth_user() !== null) { ?>
+        <link href="css/dashboard.css" rel="stylesheet">
     <?php } ?>
 </head>
 <body>
 <?php
-if(auth_user() !== null)
-{
+if (auth_user() !== null) {
     require_once 'todolist.php';
-}
-else { ?>
+} else { ?>
     <div class="form-container-wrapper">
         <?php require_once 'inc/sign-in.php'; ?>
         <?php require_once 'inc/sign-up.php'; ?>

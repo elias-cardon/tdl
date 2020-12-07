@@ -1,9 +1,11 @@
-<?php if(!defined("APP_NAME")) exit(); ?>
-<?php $user = auth_user(); if($user === null) exit(); ?>
+<?php if (!defined("APP_NAME")) exit(); ?>
+<?php $user = auth_user();
+if ($user === null) exit(); ?>
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -23,7 +25,7 @@
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <h3>Bienvenue, <?php echo $user["name"]; ?></h3>
-            <br />
+            <br/>
             <ul class="nav nav-sidebar">
                 <li class="active"><a href="#">Dashboard <span class="sr-only">(current)</span></a></li>
                 <li><a href="todolist.php">To do list</a></li>
